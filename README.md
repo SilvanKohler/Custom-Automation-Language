@@ -2,7 +2,16 @@
 An Language to automate tasks. (And you can make AFK-Farming bots too)
 ## Table of contents
 - [Statements](#Statements)
-  - [print](#print%20text)
+  - [print](#print-text)
+  - [hotkey](#hotkey-key)
+  - [leftclick](#leftclick-x,y)
+  - [rightclick](#rightclick-x,y)
+  - [press](#press-key)
+  - [release](#release-key)
+  - [type](#type-text)
+  - [wait](#wait-seconds)
+  - [comment](#comment-text)
+  - [loop](#loop-[start/stop])
 - [Keys](#Keys)
 ## Statements
 ### print text
