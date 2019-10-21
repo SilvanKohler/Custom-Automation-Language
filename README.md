@@ -1,6 +1,7 @@
 # Custom-Automation-Language
 
 An Language to automate tasks. (And you can make AFK-Farming bots too)
+Executes all commands in instructions.txt.
 ## Table of contents
 - [Custom-Automation-Language](#custom-automation-language)
   - [Table of contents](#table-of-contents)
