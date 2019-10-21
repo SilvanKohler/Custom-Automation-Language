@@ -20,7 +20,7 @@ Prints text to the output.
 Defines the start/stop shortcut.
 ### leftclick x,y
 left-click at position: x, y.
-### reftclick x,y
+### rightclick x,y
 Right-click at position: x, y.
 ### press key
 Press the key: key.
