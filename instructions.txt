@@ -1,0 +1,6 @@
+hotkey home
+print start
+loop start
+print soos
+wait 1
+loop end
