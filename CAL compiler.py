@@ -1,15 +1,13 @@
 import pynput
 from time import sleep
 from threading import Thread
-from pynput.keyboard import Key
-import logging
+from pynput.keyboard import Key, KeyCode
 
 hotkey = None
-def Rightclick(pos):
+def rightclick(pos):
     mouse.position = tuple([int(x) for x in str(pos).replace(" ", "").split(",")])
     mouse.click(pynput.mouse.Button.right)
-
-def Leftclick(pos):
+def leftclick(pos):
     mouse.position = tuple([int(x) for x in str(pos).replace(" ", "").split(",")])
     mouse.click(pynput.mouse.Button.left)
 def press(key):
@@ -30,8 +28,7 @@ end = \
 """
 def on_press(key):
 \tglobal running, prg
-\tprint(key)
-\tif key == hotkey:
+\tif key == KeyCode.from_char(hotkey) or key == hotkey:
 \t\trunning = not running
 \t\tif running:
 \t\t\tt = Thread(target=prg)
@@ -40,17 +37,9 @@ listener = pynput.keyboard.Listener(on_press=on_press)
 listener.start()
 print(f"not running, press {hotkey} to run")
 listener.join()
-# def main():
-# \tglobal started, prev_state, prg, t
-# \tif not started and not prev_state == started:
-# \t\trunning = False
-# \telif started and not prev_state == started:
-# \t\trunning = True
-# \t\tt = Thread(target=prg)
-# \t\tt.start()
-# while True:
-# \tmain()
 """
+
+
 keys = {
     "alt": Key.alt,
     "alt_gr": Key.alt_gr,
@@ -109,8 +98,8 @@ keys = {
 }
 language = {
     "print": "print",
-    "Rightclick": "Rightclick",
-    "Leftclick": "Leftclick",
+    "rightclick": "rightclick",
+    "leftclick": "leftclick",
     "press": "press",
     "release": "release",
     "type": "type",
@@ -158,8 +147,15 @@ def translate(instruction):
             indent += 1
         elif value == "end":
             indent -= 1
+    if indent > 1:
+        stoptabs = ""
+        for x in range(indent):
+            stoptabs += "\t"
+        stop = f"{stoptabs}if not running:\n\t{stoptabs}break\n"
+    else:
+        stop = ""
     if language.get(statement, False) and not language.get(statement, False) == "comment" and not language.get(statement, False) == "hotkey":
-        return f"{tabs}" + f"{language.get(statement, False)}" + f"({doublequote if checkType(value) == 'str' else none}" + f"{value}" + f"{doublequote if checkType(value) == 'str' else none})\n" if not statement == "loop" else f"{tabs}" + f"{language.get(statement, False)}\n" if not value == "end" else False
+        return f"{tabs}" + f"{language.get(statement, False)}" + f"({doublequote if checkType(value) == 'str' else none}" + f"{value}" + f"{doublequote if checkType(value) == 'str' else none})\n" + stop if not statement == "loop" else f"{tabs}" + f"{language.get(statement, False)}\n" + stop if not value == "end" else False
     elif language.get(statement, False) and not language.get(statement, False) == "comment" and language.get(statement, False) == "hotkey":
         hotkey = keys.get(str(value), str(value))
     else:

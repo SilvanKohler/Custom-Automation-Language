@@ -1,18 +1,21 @@
 # Custom-Automation-Language
+
 An Language to automate tasks. (And you can make AFK-Farming bots too)
 ## Table of contents
-- [Statements](#Statements)
-  - [print](#print-text)
-  - [hotkey](#hotkey-key)
-  - [leftclick](#leftclick-xy)
-  - [rightclick](#rightclick-xy)
-  - [press](#press-key)
-  - [release](#release-key)
-  - [type](#type-text)
-  - [wait](#wait-seconds)
-  - [comment](#comment-text)
-  - [loop](#loop-startend)
-- [Keys](#Keys)
+- [Custom-Automation-Language](#custom-automation-language)
+  - [Table of contents](#table-of-contents)
+  - [Statements](#statements)
+    - [print text](#print-text)
+    - [hotkey key](#hotkey-key)
+    - [leftclick x,y](#leftclick-xy)
+    - [rightclick x,y](#rightclick-xy)
+    - [press key](#press-key)
+    - [release key](#release-key)
+    - [type text](#type-text)
+    - [wait seconds](#wait-seconds)
+    - [comment text](#comment-text)
+    - [loop [start/end]](#loop-startend)
+  - [Keys](#keys)
 ## Statements
 ### print text
 Prints text to the output.
