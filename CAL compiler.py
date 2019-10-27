@@ -11,10 +11,13 @@ def leftclick(pos):
     mouse.position = tuple([int(x) for x in str(pos).replace(" ", "").split(",")])
     mouse.click(pynput.mouse.Button.left)
 def press(key):
+    key = str(key)
     key = keys.get(key, key)
-    keyboard.press(str(key))
+    keyboard.press(key)
 def release(key):
-    keyboard.release(str(key))
+    key = str(key)
+    key = keys.get(key, key)
+    keyboard.release(key)
 def Type(string):
     keyboard.type(str(string))
 def wait(s):
@@ -28,7 +31,7 @@ end = \
 """
 def on_press(key):
 \tglobal running, prg
-\tif key == KeyCode.from_char(hotkey) or key == hotkey:
+\tif key == KeyCode.from_char(hotkey) or key == str(hotkey):
 \t\trunning = not running
 \t\tif running:
 \t\t\tt = Thread(target=prg)
@@ -112,7 +115,7 @@ none = ""
 doublequote = '"'
 quote = "'"
 indent = 1
-doublebackslash = "\\"
+doublebackslash = "\\\\"
 
 keyboard = pynput.keyboard.Controller()
 mouse = pynput.mouse.Controller()
@@ -169,36 +172,8 @@ def main():
     for instruction in instructions:
         translation = translate(instruction)
         code += (translation if translation else "")
-    # open("compiled.py", "w").write(code)
     # print(hotkey)
     code += end
     exec(code)
     # print(mouse.position)
-    # sleep(s)
-    # keyboard.press('w')
-    # click(962, 374)
-    # sleep(s)
-    # click(1215, 843)
-    # sleep(s)
-    # click(842, 930)
-    # sleep(s)
-    # click(516, 885)
-    # sleep(s)
-    # click(350, 889)
-    # sleep(s)
-    # click(1692, 946)
-    # click(313, 941)
-    # sleep(s)
-    # click(464, 1010)
-    # sleep(s)
-    # click(393, 965)
-    # sleep(s)
-    # click(464, 942)
-    # sleep(s)
-    # click(539, 951)
-    # sleep(s)
-    # click(597, 980)
-    # sleep(s)
-    # click(441, 50)
-    # keyboard.release('w')
 main()

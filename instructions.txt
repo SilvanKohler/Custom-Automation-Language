@@ -1,29 +1,6 @@
 hotkey pause
-
-comment use pause as hotkey
-print started
-rightclick 100, 100
-leftclick 100, 100
 loop start
-wait 5
+wait 0.5
 press w
-wait 5
-press 1
-leftclick 800, 940
-wait 5
-leftclick 460, 50
-wait 5
-leftclick 920, 810
-wait 5
-press q
-leftclick 950, 500
-wait 5
-leftclick 1750, 600
-wait 5
-leftclick 260, 380
-wait 5
-leftclick 1710, 175
 release w
-print loop
 loop end
-print stopped
