@@ -4,4 +4,6 @@ wait 0.5
 press tab
 release tab
 type pascal
+press w
+release w
 loop end
