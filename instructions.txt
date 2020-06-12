@@ -1,9 +1,7 @@
 hotkey pause
 loop start
-wait 0.5
+wait 1
 press tab
 release tab
-type pascal
-press w
-release w
+type example
 loop end
