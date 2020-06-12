@@ -1,27 +1,45 @@
-import pynput
-from time import sleep
 from threading import Thread
+from time import sleep
+
+from pynput import keyboard as kb
+from pynput import mouse
 from pynput.keyboard import Key, KeyCode
 
 hotkey = None
+Thread = Thread
+KeyCode = KeyCode
+
+
 def rightclick(pos):
     mouse.position = tuple([int(x) for x in str(pos).replace(" ", "").split(",")])
-    mouse.click(pynput.mouse.Button.right)
+    mouse.click(mouse.Button.right)
+
+
 def leftclick(pos):
     mouse.position = tuple([int(x) for x in str(pos).replace(" ", "").split(",")])
-    mouse.click(pynput.mouse.Button.left)
+    mouse.click(mouse.Button.left)
+
+
 def press(key):
     key = str(key)
     key = keys.get(key, key)
     keyboard.press(key)
+
+
 def release(key):
     key = str(key)
     key = keys.get(key, key)
     keyboard.release(key)
+
+
 def Type(string):
     keyboard.type(str(string))
+
+
 def wait(s):
     sleep(int(s))
+
+
 init = \
 """
 running = False
@@ -31,17 +49,16 @@ end = \
 """
 def on_press(key):
 \tglobal running, prg
-\tif key == KeyCode.from_char(hotkey) or key == str(hotkey):
+\tif key == KeyCode.from_char(hotkey) or key == str(hotkey) or key == hotkey:
 \t\trunning = not running
 \t\tif running:
 \t\t\tt = Thread(target=prg)
 \t\t\tt.start()
-listener = pynput.keyboard.Listener(on_press=on_press)
+listener = kb.Listener(on_press=on_press)
 listener.start()
 print(f"not running, press {hotkey} to run")
 listener.join()
 """
-
 
 keys = {
     "alt": Key.alt,
@@ -105,7 +122,7 @@ language = {
     "leftclick": "leftclick",
     "press": "press",
     "release": "release",
-    "type": "type",
+    "type": "Type",
     "wait": "wait",
     "comment": "comment",
     "loop": "while running:",
@@ -117,8 +134,9 @@ quote = "'"
 indent = 1
 doublebackslash = "\\\\"
 
-keyboard = pynput.keyboard.Controller()
-mouse = pynput.mouse.Controller()
+keyboard = kb.Controller()
+mouse = mouse.Controller()
+
 
 def checkType(v):
     try:
@@ -132,6 +150,7 @@ def checkType(v):
     except ValueError:
         pass
     return "str"
+
 
 def translate(instruction):
     global indent, hotkey, indent
@@ -157,14 +176,20 @@ def translate(instruction):
         stop = f"{stoptabs}if not running:\n\t{stoptabs}break\n"
     else:
         stop = ""
-    if language.get(statement, False) and not language.get(statement, False) == "comment" and not language.get(statement, False) == "hotkey":
+    if language.get(statement, False) and not language.get(statement, False) == "comment" and not language.get(
+            statement, False) == "hotkey":
         return f"{tabs}" + f"{language.get(statement, False)}" + f"({doublequote if checkType(value) == 'str' else none}" + f"{value}" + f"{doublequote if checkType(value) == 'str' else none})\n" + stop if not statement == "loop" else f"{tabs}" + f"{language.get(statement, False)}\n" + stop if not value == "end" else False
-    elif language.get(statement, False) and not language.get(statement, False) == "comment" and language.get(statement, False) == "hotkey":
+    elif language.get(statement, False) and not language.get(statement, False) == "comment" and language.get(statement,
+                                                                                                             False) == "hotkey":
         hotkey = keys.get(str(value), str(value))
     else:
         return False
     # print(statement, value)
+
+
 instructions = []
+
+
 def main():
     code = init
     with open("instructions.txt") as f:
@@ -174,6 +199,9 @@ def main():
         code += (translation if translation else "")
     # print(hotkey)
     code += end
+    print(code)
     exec(code)
     # print(mouse.position)
+
+
 main()
