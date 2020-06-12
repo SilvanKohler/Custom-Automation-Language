@@ -2,4 +2,7 @@
 __pycache__/
 build/
 dist/
+venv/
 CAL compiler.spec
+.idea/
+
